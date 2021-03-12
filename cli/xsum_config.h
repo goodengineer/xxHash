@@ -33,7 +33,6 @@
 #ifndef XSUM_CONFIG_H
 #define XSUM_CONFIG_H
 
-
 /* ************************************
  *  Compiler Options
  **************************************/
@@ -93,7 +92,6 @@
 #if !defined(S_ISREG)
 #  define S_ISREG(x) (((x) & S_IFMT) == S_IFREG)
 #endif
-
 
 /* ************************************
  * Windows helpers
