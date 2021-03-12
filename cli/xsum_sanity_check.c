@@ -57,7 +57,6 @@ XSUM_API void XSUM_fillTestBuffer(XSUM_U8* buffer, size_t len)
 }
 
 
-
 /* ************************************************
  * Self-test:
  * ensure results consistency accross platforms
@@ -261,7 +260,6 @@ static void XSUM_checkResult128(XXH128_hash_t r1, XXH128_hash_t r2)
     }
     nbTests++;
 }
-
 
 static void XSUM_testXXH32(const void* data, const XSUM_testdata32_t* testData)
 {
