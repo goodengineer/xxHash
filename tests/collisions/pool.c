@@ -8,7 +8,6 @@
  * You may select, at your option, one of the above-listed licenses.
  */
 
-
 /* ======   Dependencies   ======= */
 #include <stddef.h>    /* size_t */
 #include <stdlib.h>    /* malloc, calloc, free */
@@ -17,19 +16,16 @@
 
 #include "pool.h"
 
-
 /* ======   Compiler specifics   ====== */
 #if defined(_MSC_VER)
 #  pragma warning(disable : 4204)        /* disable: C4204: non-constant aggregate initializer */
 #endif
-
 
 /* ===  Build Macro  === */
 
 #ifndef POOL_MT   // can be defined on command line
 #  define POOL_MT 1
 #endif
-
 
 /* ===  Implementation  === */
 
@@ -51,10 +47,8 @@ struct POOL_ctx_s {
 
     /* The queue is a circular buffer */
     POOL_job *queue;
-    size_t queueHead;
-    size_t queueTail;
-    size_t queueSize;
-
+    size_t queueHead,queueTail,queueSize;
+   
     /* The number of threads working on jobs */
     size_t numThreadsBusy;
     /* Indicates if the queue is empty */
@@ -172,10 +166,10 @@ static void POOL_join(POOL_ctx* ctx) {
     ZSTD_pthread_cond_broadcast(&ctx->queuePopCond);
 
     /* Join all of the threads */
-    {   size_t i;
+      size_t i;
         for (i = 0; i < ctx->threadCapacity; ++i) {
             ZSTD_pthread_join(ctx->threads[i], NULL);  /* note : could fail */
-    }   }
+      }
 }
 
 void POOL_free(POOL_ctx *ctx) {
@@ -200,7 +194,7 @@ size_t POOL_sizeof(POOL_ctx *ctx) {
 
 
 /* @return : 0 on success, 1 on error */
-static int POOL_resize_internal(POOL_ctx* ctx, size_t numThreads)
+static bool POOL_resize_internal(POOL_ctx* ctx, size_t numThreads)
 {
     if (numThreads <= ctx->threadCapacity) {
         if (!numThreads) return 1;
@@ -229,12 +223,12 @@ static int POOL_resize_internal(POOL_ctx* ctx, size_t numThreads)
 }
 
 /* @return : 0 on success, 1 on error */
-int POOL_resize(POOL_ctx* ctx, size_t numThreads)
+bool POOL_resize(POOL_ctx* ctx, size_t numThreads)
 {
-    int result;
+    bool result;
     if (ctx==NULL) return 1;
     ZSTD_pthread_mutex_lock(&ctx->queueMutex);
-    result = POOL_resize_internal(ctx, numThreads);
+    result = (bool)POOL_resize_internal(ctx, numThreads);
     ZSTD_pthread_cond_broadcast(&ctx->queuePopCond);
     ZSTD_pthread_mutex_unlock(&ctx->queueMutex);
     return result;
@@ -246,7 +240,7 @@ int POOL_resize(POOL_ctx* ctx, size_t numThreads)
  * When queueSize is 1 (pool was created with an intended queueSize of 0),
  * then a queue is empty if there is a thread free _and_ no job is waiting.
  */
-static int isQueueFull(POOL_ctx const* ctx) {
+static bool isQueueFull(POOL_ctx const* ctx) {
     if (ctx->queueSize > 1) {
         return ctx->queueHead == ((ctx->queueTail + 1) % ctx->queueSize);
     } else {
@@ -254,7 +248,6 @@ static int isQueueFull(POOL_ctx const* ctx) {
                !ctx->queueEmpty;
     }
 }
-
 
 static void POOL_add_internal(POOL_ctx* ctx, POOL_function function, void *opaque)
 {
@@ -281,7 +274,7 @@ void POOL_add(POOL_ctx* ctx, POOL_function function, void* opaque)
 }
 
 
-int POOL_tryAdd(POOL_ctx* ctx, POOL_function function, void* opaque)
+bool POOL_tryAdd(POOL_ctx* ctx, POOL_function function, void* opaque)
 {
     assert(ctx != NULL);
     ZSTD_pthread_mutex_lock(&ctx->queueMutex);
@@ -294,15 +287,13 @@ int POOL_tryAdd(POOL_ctx* ctx, POOL_function function, void* opaque)
     return 1;
 }
 
-
 #else  /* POOL_MT  not defined */
 
 /* ========================== */
 /* No multi-threading support */
 /* ========================== */
 
-
-/* We don't need any data, but if it is empty, malloc() might return NULL. */
+/* We don't need any data, but if it's empty, malloc() might return NULL. */
 struct POOL_ctx_s {
     int dummy;
 };
@@ -319,7 +310,7 @@ void POOL_free(POOL_ctx* ctx) {
     (void)ctx;
 }
 
-int POOL_resize(POOL_ctx* ctx, size_t numThreads) {
+bool POOL_resize(POOL_ctx* ctx, size_t numThreads) {
     (void)ctx; (void)numThreads;
     return 0;
 }
@@ -329,7 +320,7 @@ void POOL_add(POOL_ctx* ctx, POOL_function function, void* opaque) {
     function(opaque);
 }
 
-int POOL_tryAdd(POOL_ctx* ctx, POOL_function function, void* opaque) {
+bool POOL_tryAdd(POOL_ctx* ctx, POOL_function function, void* opaque) {
     (void)ctx;
     function(opaque);
     return 1;
