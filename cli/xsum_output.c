@@ -40,7 +40,6 @@ XSUM_API int XSUM_log(const char* format, ...)
     return ret;
 }
 
-
 XSUM_ATTRIBUTE((__format__(__printf__, 1, 2)))
 XSUM_API int XSUM_output(const char* format, ...)
 {
