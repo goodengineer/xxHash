@@ -29,11 +29,9 @@
 
 #include <stddef.h>   /* size_t */
 
-
 /* ==================================================
  *   Non-portable hash algorithms
  * =============================================== */
-
 
 #ifdef HARDWARE_SUPPORT
 
@@ -47,7 +45,6 @@
  */
 
 #endif
-
 
 
 /* ==================================================
@@ -72,13 +69,11 @@ size_t XXH32_wrapper(const void* src, size_t srcSize, void* dst, size_t dstCapac
     return (size_t) XXH32(src, srcSize, 0);
 }
 
-
 size_t XXH64_wrapper(const void* src, size_t srcSize, void* dst, size_t dstCapacity, void* customPayload)
 {
     (void)dst; (void)dstCapacity; (void)customPayload;
     return (size_t) XXH64(src, srcSize, 0);
 }
-
 
 size_t xxh3_wrapper(const void* src, size_t srcSize, void* dst, size_t dstCapacity, void* customPayload)
 {
@@ -86,13 +81,11 @@ size_t xxh3_wrapper(const void* src, size_t srcSize, void* dst, size_t dstCapaci
     return (size_t) XXH3_64bits(src, srcSize);
 }
 
-
 size_t XXH128_wrapper(const void* src, size_t srcSize, void* dst, size_t dstCapacity, void* customPayload)
 {
     (void)dst; (void)dstCapacity; (void)customPayload;
     return (size_t) XXH3_128bits(src, srcSize).low64;
 }
-
 
 
 /* ==================================================
