@@ -32,11 +32,9 @@
 extern "C" {
 #endif
 
-
 #include <stddef.h> /* size_t */
 
 unsigned badsum32(const void* input, size_t len, unsigned seed);
-
 
 #if defined (__cplusplus)
 }
