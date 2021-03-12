@@ -15,7 +15,6 @@
 extern "C" {
 #endif
 
-
 /*-****************************************
 *  Dependencies
 ******************************************/
@@ -27,8 +26,6 @@ extern "C" {
 #endif
 #include <time.h>         /* clock_t, clock, CLOCKS_PER_SEC */
 
-
-
 /*-****************************************
 *  Local Types
 ******************************************/
@@ -39,8 +36,6 @@ extern "C" {
 #else
   typedef unsigned long long PTime;  /* does not support compilers without long long support */
 #endif
-
-
 
 /*-****************************************
 *  Time functions
@@ -70,7 +65,6 @@ extern "C" {
 
 #endif
 
-
 UTIL_time_t UTIL_getTime(void);
 PTime UTIL_getSpanTimeMicro(UTIL_time_t clockStart, UTIL_time_t clockEnd);
 PTime UTIL_getSpanTimeNano(UTIL_time_t clockStart, UTIL_time_t clockEnd);
@@ -80,7 +74,6 @@ PTime UTIL_clockSpanMicro(UTIL_time_t clockStart);
 PTime UTIL_clockSpanNano(UTIL_time_t clockStart);
 
 void UTIL_waitForNextTick(void);
-
 
 #if defined (__cplusplus)
 }
