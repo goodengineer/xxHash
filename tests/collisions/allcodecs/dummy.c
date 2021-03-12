@@ -24,7 +24,6 @@
  * - xxHash source repository: https://github.com/Cyan4973/xxHash
  */
 
-
 #include <dummy.h>
 
 unsigned badsum32(const void* input, size_t len, unsigned seed)
