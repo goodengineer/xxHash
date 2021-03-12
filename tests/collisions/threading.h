@@ -23,7 +23,6 @@ extern "C" {
 #  define POOL_MT 1
 #endif
 
-
 /* ===  Implementation  === */
 
 #if POOL_MT && defined(_WIN32)
@@ -43,6 +42,7 @@ extern "C" {
 
 #include <windows.h>
 #include <stdio.h>
+#include <stdint.h>
 
 /* mutex */
 #define ZSTD_pthread_mutex_t           CRITICAL_SECTION
@@ -66,15 +66,14 @@ typedef struct {
     void* arg;
 } ZSTD_pthread_t;
 
-int ZSTD_pthread_create(ZSTD_pthread_t* thread, const void* unused,
+uint8_t ZSTD_pthread_create(ZSTD_pthread_t* thread, const void* unused,
                    void* (*start_routine) (void*), void* arg);
 
-int ZSTD_pthread_join(ZSTD_pthread_t thread, void** value_ptr);
+uint8_t ZSTD_pthread_join(ZSTD_pthread_t thread, void** value_ptr);
 
 /**
  * add here more wrappers as required
  */
-
 
 #elif POOL_MT   /* posix assumed ; need a better detection method */
 /* ===   POSIX Systems   === */
