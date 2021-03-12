@@ -8,7 +8,6 @@
  * You may select, at your option, one of the above-listed licenses.
  */
 
-
 /* benchfn :
  * benchmark any function on a set of input
  * providing result in nanoSecPerRun
@@ -25,7 +24,6 @@ extern "C" {
 /* ===  Dependencies  === */
 #include <stddef.h>   /* size_t */
 
-
 /* ====  Benchmark any function, iterated on a set of blocks  ==== */
 
 /* BMK_runTime_t: valid result return type */
@@ -34,7 +32,6 @@ typedef struct {
     double nanoSecPerRun;  /* time per iteration (over all blocks) */
     size_t sumOfReturn;         /* sum of return values */
 } BMK_runTime_t;
-
 
 /* BMK_runOutcome_t:
  * type expressing the outcome of a benchmark run by BMK_benchFunction(),
@@ -51,12 +48,10 @@ typedef struct {
     int error_tag_never_ever_use_directly;
 } BMK_runOutcome_t;
 
-
 /* prototypes for benchmarked functions */
 typedef size_t (*BMK_benchFn_t)(const void* src, size_t srcSize, void* dst, size_t dstCapacity, void* customPayload);
 typedef size_t (*BMK_initFn_t)(void* initPayload);
 typedef unsigned (*BMK_errorFn_t)(size_t);
-
 
 /* BMK_benchFunction() parameters are provided via the following structure.
  * A structure is preferable for readability,
@@ -85,7 +80,6 @@ typedef struct {
     size_t* blockResults;     /* Optional: store the return value of benchFn for each block. Use NULL if this result is not requested. */
 } BMK_benchParams_t;
 
-
 /* BMK_benchFunction() :
  * This function benchmarks benchFn and initFn, providing a result.
  *
@@ -110,7 +104,6 @@ typedef struct {
 BMK_runOutcome_t BMK_benchFunction(BMK_benchParams_t params, unsigned nbLoops);
 
 
-
 /* check first if the benchmark was successful or not */
 int BMK_isSuccessful_runOutcome(BMK_runOutcome_t outcome);
 
@@ -127,7 +120,6 @@ BMK_runTime_t BMK_extract_runTime(BMK_runOutcome_t outcome);
  *        always check if benchmark failed first !
  */
 size_t BMK_extract_errorResult(BMK_runOutcome_t outcome);
-
 
 
 /* ====  Benchmark any function, returning intermediate results  ==== */
@@ -159,7 +151,6 @@ BMK_timedFnState_t* BMK_createTimedFnState(unsigned total_ms, unsigned run_ms);
 void BMK_resetTimedFnState(BMK_timedFnState_t* timedFnState, unsigned total_ms, unsigned run_ms);
 void BMK_freeTimedFnState(BMK_timedFnState_t* state);
 
-
 /* BMK_timedFnState_shell and BMK_initStatic_timedFnState() :
  * Makes it possible to statically allocate a BMK_timedFnState_t on stack.
  * BMK_timedFnState_shell is only there to allocate space,
@@ -174,7 +165,6 @@ typedef union {
     long long alignment_enforcer;  /* must be aligned on 8-bytes boundaries */
 } BMK_timedFnState_shell;
 BMK_timedFnState_t* BMK_initStatic_timedFnState(void* buffer, size_t size, unsigned total_ms, unsigned run_ms);
-
 
 #endif   /* BENCH_FN_H_23876 */
 
