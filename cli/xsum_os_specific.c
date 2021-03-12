@@ -166,7 +166,6 @@ static char* XSUM_narrowString(const wchar_t *str, int *lenOut)
 }
 
 
-
 /*****************************************************************************
  *                             File helpers
  *****************************************************************************/
@@ -221,8 +220,7 @@ static int XSUM_stat(const char* infilename, XSUM_stat_t* statbuf)
 XSUM_ATTRIBUTE((__format__(__printf__, 2, 0)))
 static int XSUM_vasprintf(char** strp, const char* format, va_list ap)
 {
-    int ret;
-    int size;
+    int ret,size;
     va_list copy;
     /*
      * To be safe, make a va_copy.
@@ -458,7 +456,6 @@ int main(int ansi_argc, char* ansi_argv[])
 #endif /* !XSUM_WIN32_USE_WMAIN */
 #endif /* !XSUM_NO_MAIN */
 #endif /* XSUM_WIN32_USE_WCHAR */
-
 
 /*
  * Determines whether the file at filename is a directory.
