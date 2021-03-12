@@ -30,17 +30,14 @@
 #include <limits.h>      /* INT_MAX */
 #include "bhDisplay.h"   /* bench_x */
 
-
 /* ===  defines list of hashes `hashCandidates` and NB_HASHES  *** */
 
 #include "hashes.h"
-
 
 /* ===  parse command line  === */
 
 #undef NDEBUG
 #include <assert.h>
-
 
 /*!
  * readIntFromChar():
@@ -72,7 +69,6 @@ static int readIntFromChar(const char** stringPtr)
     return result;
 }
 
-
 /**
  * isCommand():
  * Checks if string is the same as longCommand.
@@ -103,7 +99,6 @@ static int longCommandWArg(const char** stringPtr, const char* longCommand)
     return result;
 }
 
-
 /* ===   default values - can be redefined at compilation time   === */
 
 #ifndef SMALL_SIZE_MIN_DEFAULT
@@ -118,7 +113,6 @@ static int longCommandWArg(const char** stringPtr, const char* longCommand)
 #ifndef LARGE_SIZELOG_MAX_DEFAULT
 #  define LARGE_SIZELOG_MAX_DEFAULT  27
 #endif
-
 
 static int display_hash_names(void)
 {
