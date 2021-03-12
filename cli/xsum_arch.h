@@ -24,7 +24,7 @@
  */
 
 /*
- * Checks for predefined macros by the compiler to try and get both the arch
+ * Checks for predefined macros by the compiler to try and to get both the arch
  * and the compiler version.
  */
 #ifndef XSUM_ARCH_H
@@ -36,7 +36,6 @@
 #define XSUM_QUOTE(str) #str
 #define XSUM_EXPAND_AND_QUOTE(str) XSUM_QUOTE(str)
 #define XSUM_PROGRAM_VERSION XSUM_EXPAND_AND_QUOTE(XSUM_LIB_VERSION)
-
 
 /* Show compiler versions in WELCOME_MESSAGE. XSUM_CC_VERSION_FMT will return the printf specifiers,
  * and VERSION will contain the comma separated list of arguments to the XSUM_CC_VERSION_FMT string. */
@@ -148,6 +147,5 @@
 #else
 #  define XSUM_ARCH "unknown"
 #endif
-
 
 #endif /* XSUM_ARCH_H */
