@@ -78,7 +78,6 @@ int main(void)
     fprintf(checksum, "2d7f1808da1fa63c  %s\n", FILENAME);
     fclose(checksum);
 
-
     /* Create two scripts for both Windows and Unix. */
 
     /* Generate a Windows batch script. Always insert CRLF manually. */
