@@ -9,7 +9,6 @@
  */
 
 
-
 /* *************************************
 *  Includes
 ***************************************/
@@ -32,7 +31,6 @@
 #define MB *(1 <<20)
 #define GB *(1U<<30)
 
-
 /* *************************************
 *  Debug errors
 ***************************************/
@@ -44,7 +42,6 @@
 #  define DEBUGOUTPUT(...)
 #endif
 
-
 /* error without displaying */
 #define RETURN_QUIET_ERROR(retValue, ...) {           \
     DEBUGOUTPUT("%s: %i: \n", __FILE__, __LINE__);    \
@@ -53,7 +50,6 @@
     DEBUGOUTPUT(" \n");                               \
     return retValue;                                  \
 }
-
 
 /* *************************************
 *  Benchmarking an arbitrary function
@@ -94,7 +90,6 @@ static BMK_runOutcome_t BMK_setValid_runTime(BMK_runTime_t runTime)
     outcome.internal_never_ever_use_directly = runTime;
     return outcome;
 }
-
 
 /* initFn will be measured once, benchFn will be measured `nbLoops` times */
 /* initFn is optional, provide NULL if none */
@@ -141,7 +136,6 @@ BMK_runOutcome_t BMK_benchFunction(BMK_benchParams_t p,
             return BMK_setValid_runTime(rt);
     }   }
 }
-
 
 /* ====  Benchmarking any function, providing intermediate results  ==== */
 
@@ -198,7 +192,6 @@ int BMK_isCompleted_TimedFn(const BMK_timedFnState_t* timedFnState)
 {
     return (timedFnState->timeSpent_ns >= timedFnState->timeBudget_ns);
 }
-
 
 #undef MIN
 #define MIN(a,b)   ( (a) < (b) ? (a) : (b) )
