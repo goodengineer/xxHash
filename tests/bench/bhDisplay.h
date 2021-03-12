@@ -31,11 +31,9 @@
 extern "C" {
 #endif
 
-
 /* ===  Dependencies  === */
 
 #include "benchfn.h"   /* BMK_benchFn_t */
-
 
 /* ===  Declarations  === */
 
@@ -51,8 +49,6 @@ void bench_throughput_randomInputLength(Bench_Entry const* hashDescTable, int nb
 
 void bench_latency_smallInputs(Bench_Entry const* hashDescTable, int nbHashes, size_t sizeMin, size_t sizeMax);
 void bench_latency_randomInputLength(Bench_Entry const* hashDescTable, int nbHashes, size_t sizeMin, size_t sizeMax);
-
-
 
 #if defined (__cplusplus)
 }
