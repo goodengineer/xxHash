@@ -38,7 +38,6 @@
  * Due to these memory constraints, it requires a 64-bit system.
  */
 
-
  /* ===  Dependencies  === */
 
 #include <stdint.h>   /* uint64_t */
@@ -52,7 +51,6 @@
 #include "hashes.h"   /* UniHash, hashfn, hashfnTable */
 
 #include "sort.hh"    /* sort64 */
-
 
 
 typedef enum { ht32, ht64, ht128 } Htype_e;
@@ -91,7 +89,6 @@ void printHash(const void* table, size_t n, Htype_e htype)
  * but it needs to know the total number of samples.
  */
 
-
 static const uint64_t prime64_1 = 11400714785074694791ULL;   /* 0b1001111000110111011110011011000110000101111010111100101010000111 */
 static const uint64_t prime64_2 = 14029467366897019727ULL;   /* 0b1100001010110010101011100011110100100111110101001110101101001111 */
 static const uint64_t prime64_3 =  1609587929392839161ULL;   /* 0b0001011001010110011001111011000110011110001101110111100111111001 */
@@ -114,7 +111,6 @@ static unsigned char randomByte(size_t n)
 }
 
 typedef enum { sf_slab5, sf_sparse } sf_genMode;
-
 
 #ifdef SLAB5
 
@@ -324,7 +320,6 @@ static inline void update_sampleFactory(sampleFactory* sf)
 
 #endif /* pattern generator selection */
 
-
 /* ===  Candidate Filter  === */
 
 typedef unsigned char Filter;
@@ -438,7 +433,6 @@ static inline int Filter_insert(Filter* bf, int bflog, uint64_t hash)
      return addCandidates[existing];
  }
 
-
 /*
  * Check if provided 64-bit hash is a collision candidate
  * Requires the slot to be occupied by at least 2 candidates.
@@ -470,7 +464,6 @@ static inline int Filter_check(const Filter* bf, int bflog, uint64_t hash)
  }
 
 #endif // FILTER_1_PROBE
-
 
 /* ===  Display  === */
 
@@ -515,7 +508,6 @@ const char* displayDelay(double delay_s)
     return delayString;
 }
 
-
 /* ===  Math  === */
 
 static double power(uint64_t base, int p)
@@ -541,7 +533,6 @@ static int highestBitSet(uint64_t v)
     return bitId;
 }
 
-
 /* ===  Filter and search collisions  === */
 
 #undef NDEBUG   /* ensure assert is not disabled */
@@ -559,7 +550,6 @@ uint64_t select_nbh(int nbBits)
     while (estimateNbCollisions(nbH, nbBits) < targetColls) nbH *= 2;
     return nbH;
 }
-
 
 typedef struct {
     uint64_t nbCollisions;
@@ -663,7 +653,6 @@ static size_t search_collisions(
     if (bflog == 0) bflog = highestBitSet(totalH) + 1;   /* auto-size filter */
     uint64_t const bfsize = (1ULL << bflog);
 
-
     /* ===  filter hashes (optional)  === */
 
     Filter* bf = NULL;
@@ -674,7 +663,6 @@ static size_t search_collisions(
         DISPLAY(" Creating filter (%i GB) \n", (int)(bfsize >> 30));
         bf = create_Filter(bflog);
         if (!bf) EXIT("not enough memory for filter");
-
 
         DISPLAY(" Generate %llu hashes from samples of %u bytes \n",
                 (unsigned long long)totalH, (unsigned)sampleSize);
@@ -703,7 +691,6 @@ static size_t search_collisions(
             DISPLAY(" Generation and filter completed in %s, detected up to %llu candidates \n",
                     displayDelay(filterDelay), (unsigned long long) nbPresents);
     }   }
-
 
     /* === store hash candidates: duplicates will be present here === */
 
@@ -753,7 +740,6 @@ static size_t search_collisions(
             (unsigned long long) nbCandidates, displayDelay(storeTDelay));
     free_Filter(bf);
     free_sampleFactory(sf);
-
 
     /* === step 3: look for duplicates === */
     time_t const sortTBegin = time(NULL);
@@ -831,7 +817,6 @@ static size_t search_collisions(
     if (param.resultPtr) param.resultPtr->nbCollisions = collisions;
     return collisions;
 }
-
 
 
 #if defined(__MACH__) || defined(__linux__)
@@ -925,7 +910,6 @@ static uint64_t readU64FromChar(const char** stringPtr)
     return result;
 }
 
-
 /**
  * longCommandWArg():
  * Checks if *stringPtr is the same as longCommand.
@@ -940,7 +924,6 @@ static int longCommandWArg(const char** stringPtr, const char* longCommand)
     if (result) *stringPtr += comSize;
     return result;
 }
-
 
 #include "pool.h"
 
@@ -971,7 +954,7 @@ void help(const char* exeName)
     printf("  --len=MB       Set length of the input (%i bytes by default) \n", SAMPLE_SIZE_DEFAULT);
 }
 
-int bad_argument(const char* exeName)
+bool bad_argument(const char* exeName)
 {
     printf("incorrect command: \n");
     help(exeName);
