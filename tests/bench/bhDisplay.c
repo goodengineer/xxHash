@@ -24,7 +24,6 @@
 *  - xxHash source repository : https://github.com/Cyan4973/xxHash
 */
 
-
 /* ===  Dependencies  === */
 
 #include <stdlib.h>   /* rand */
@@ -33,7 +32,6 @@
 
 #include "benchHash.h"
 #include "bhDisplay.h"
-
 
 /* ===  benchmark large input  === */
 
@@ -65,7 +63,6 @@ void bench_largeInput(Bench_Entry const* hashDescTable, int nbHashes, int minlog
 }
 
 
-
 /* ===  Benchmark small inputs  === */
 
 #define BENCH_SMALL_ITER_MS   170
@@ -91,7 +88,6 @@ void bench_throughput_smallInputs(Bench_Entry const* hashDescTable, int nbHashes
 }
 
 
-
 /* ===   Latency measurements (small keys)   === */
 
 static void bench_latency_oneHash_smallInputs(Bench_Entry hashDesc, size_t size_min, size_t size_max)
@@ -112,7 +108,6 @@ void bench_latency_smallInputs(Bench_Entry const* hashDescTable, int nbHashes, s
     for (int i=0; i<nbHashes; i++)
         bench_latency_oneHash_smallInputs(hashDescTable[i], size_min, size_max);
 }
-
 
 /* ===   Random input Length   === */
 
@@ -135,7 +130,6 @@ void bench_throughput_randomInputLength(Bench_Entry const* hashDescTable, int nb
     for (int i=0; i<nbHashes; i++)
         bench_randomInputLength_withOneHash(hashDescTable[i], size_min, size_max);
 }
-
 
 /* ===   Latency with Random input Length   === */
 
