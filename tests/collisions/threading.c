@@ -14,13 +14,11 @@
  * This file will hold wrapper for systems, which do not support pthreads
  */
 
-
  /* ===  Build Macro  === */
 
  #ifndef POOL_MT   // can be defined on command line
  #  define POOL_MT 1
  #endif
-
 
 /* create fake symbol to avoid empty translation unit warning */
 int g_ZSTD_threading_useles_symbol;
@@ -31,12 +29,10 @@ int g_ZSTD_threading_useles_symbol;
  * Windows minimalist Pthread Wrapper
  */
 
-
 /* ===  Dependencies  === */
 #include <process.h>
 #include <errno.h>
 #include "threading.h"
-
 
 /* ===  Implementation  === */
 
@@ -47,7 +43,7 @@ static unsigned __stdcall worker(void *arg)
     return 0;
 }
 
-int ZSTD_pthread_create(ZSTD_pthread_t* thread, const void* unused,
+uint8_t ZSTD_pthread_create(ZSTD_pthread_t* thread, const void* unused,
             void* (*start_routine) (void*), void* arg)
 {
     (void)unused;
@@ -61,7 +57,7 @@ int ZSTD_pthread_create(ZSTD_pthread_t* thread, const void* unused,
         return 0;
 }
 
-int ZSTD_pthread_join(ZSTD_pthread_t thread, void **value_ptr)
+uint8_t ZSTD_pthread_join(ZSTD_pthread_t thread, void **value_ptr)
 {
     DWORD result;
 
