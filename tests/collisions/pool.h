@@ -15,7 +15,6 @@
 extern "C" {
 #endif
 
-
 #include <stddef.h>   /* size_t */
 
 typedef struct POOL_ctx_s POOL_ctx;
@@ -42,7 +41,7 @@ void POOL_free(POOL_ctx* ctx);
  *           !0 (typically 1) if there is an error.
  *    note : only numThreads can be resized, queueSize remains unchanged.
  */
-int POOL_resize(POOL_ctx* ctx, size_t numThreads);
+bool POOL_resize(POOL_ctx* ctx, size_t numThreads);
 
 /*! POOL_sizeof() :
  * @return threadpool memory usage
@@ -69,9 +68,7 @@ void POOL_add(POOL_ctx* ctx, POOL_function function, void* opaque);
  *  Returns immediately even if not (does not block).
  * @return : 1 if successful, 0 if not.
  */
-int POOL_tryAdd(POOL_ctx* ctx, POOL_function function, void* opaque);
-
-
+bool POOL_tryAdd(POOL_ctx* ctx, POOL_function function, void* opaque);
 
 #if defined (__cplusplus)
 }
