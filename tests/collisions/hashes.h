@@ -32,7 +32,6 @@
 #define XXH_INLINE_ALL   /* XXH128_hash_t */
 #include "xxhash.h"
 
-
 /* return type */
 
 typedef union {
@@ -57,7 +56,6 @@ UniHash uniHash128(XXH128_hash_t v128)
     unih.h128 = v128;
     return unih;
 }
-
 
 /* ===  xxHash  === */
 
@@ -99,8 +97,6 @@ UniHash badsum32_wrapper (const void* data, size_t size)
 {
     return uniHash32( badsum32(data, size, 0) );
 }
-
-
 
 /* ===  Table  === */
 
